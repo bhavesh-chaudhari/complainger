@@ -14,7 +14,7 @@ export const signup = async (req: Request, res: Response) => {
   try {
     const user = await User.findUnique({
       where: {
-        email: req.body.email
+        email: req.body.email,
       },
     });
 
@@ -29,17 +29,20 @@ export const signup = async (req: Request, res: Response) => {
 
     const newUser = await User.create({
       data: { ...req.body, password: hashedPassword },
+      include: {
+        _count: true,
+      },
     });
 
-    const { password, ...userWithoutPassword } = newUser;
+    const { password, role, updatedAt, ...userToSend } = newUser;
 
     const token = jwt.sign(
-      { id: newUser.id, email: newUser.email },
+      { id: newUser.id, email: newUser.email, role: newUser.role },
       process.env.JWT_SECRET as string,
       { expiresIn: "30d" }
     );
 
-    res.status(StatusCodes.OK).json({ ...userWithoutPassword, token });
+    res.status(StatusCodes.OK).json({ ...userToSend, token });
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json(error);
     console.log(error);
@@ -50,8 +53,6 @@ export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
-    console.log(req.body);
-
     if (!email || !password) {
       return res
         .status(401)
@@ -61,6 +62,9 @@ export const login = async (req: Request, res: Response) => {
     const user = await User.findUnique({
       where: {
         email: email,
+      },
+      include: {
+        _count: true,
       },
     });
 
@@ -78,7 +82,7 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign(
-      { id: user.id, email },
+      { id: user.id, email, role: user.role },
       process.env.JWT_SECRET as string,
       { expiresIn: "30d" }
     );
@@ -86,7 +90,9 @@ export const login = async (req: Request, res: Response) => {
     const key = "password";
     delete (user as any)[key];
 
-    res.status(200).json({ ...user, token });
+    const { role, updatedAt, ...userToSend } = user;
+
+    res.status(200).json({ ...userToSend, token });
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }

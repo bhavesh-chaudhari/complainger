@@ -4,6 +4,9 @@ import path from "path";
 import cors from "cors";
 import { Request, Response, Application } from "express";
 import authRoutes from "./routes/auth"
+import complaintRoutes from "./routes/complaints"
+import userRoutes from "./routes/user"
+import { ensureAuth } from "./middlewares/auth";
 
 const app: Application = express();
 app.use(express.json());
@@ -22,7 +25,9 @@ app.use(
 app.get("/", (req: Request, res: Response) => {
   res.send("it works");
 });
-app.use("/auth", authRoutes)
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/complaints", ensureAuth, complaintRoutes);
+app.use("/api/v1/users", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 

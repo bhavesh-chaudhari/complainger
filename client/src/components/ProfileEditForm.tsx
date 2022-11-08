@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useSignup } from "../../hooks/useAuth";
 import { PulseLoader } from "react-spinners";
+import { useSignup } from "../hooks/useAuth";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { UserType } from "../types/user";
 
 const initialFormValues = {
   first_name: "",
@@ -11,29 +14,44 @@ const initialFormValues = {
   mobile_number: "",
   role: "",
   department: "",
-  password: "",
+  enrollment_no: "",
 };
 
-const SignupForm = () => {
+interface Props {
+  user: UserType | null;
+  editing: boolean;
+  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ProfileEditForm = ({ user, editing, setEditing }: Props) => {
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  const {isLoading, mutate: signup} = useSignup()
+  const handleChange = (e: any) => {
+    const name = e.target.name;
+    const value = e.target.value;
 
-  const handleChange = (e: any)=>{
-    const name = e.target.name
-    const value = e.target.value
+    setFormValues({ ...formValues, [name]: value });
+  };
 
-    setFormValues({...formValues, [name]: value})
-  }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    //    signup(formValues);
+  };
 
-  const handleSubmit = (e: React.FormEvent)=>{
-    e.preventDefault()
-    signup(formValues)
-  }
+  const id = user?.id;
 
-  useEffect(()=>{
-    console.log(formValues)
-  }, [formValues])
+  console.log(id);
+
+  const { status, data } = useQuery({
+    queryKey: ["user", id],
+    queryFn: () => {
+      return axios.get(`http://localhost:5000/api/v1/users/${id}`);
+    },
+    staleTime: Infinity,
+    enabled: !!id,
+  });
+
+  // console.log(status, data);
 
   return (
     <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
@@ -157,32 +175,29 @@ const SignupForm = () => {
         </div>
       </div>
       <div className="flex flex-col">
-        <label className="mb-2" htmlFor="password">
-          Password
+        <label className="mb-2" htmlFor="enrollment_no">
+          Enrollment Number
         </label>
         <input
           className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           type="text"
-          name="password"
-          id="password"
-          value={formValues.password}
+          name="enrollment_no"
+          id="enrollment_no"
+          value={formValues.enrollment_no}
           onChange={handleChange}
           required
         />
       </div>
       <button className="bg-blue-500 h-10 flex items-center justify-center text-white font-bold mt-4 py-2 uppercase hover:opacity-90 transition-opacity rounded-md shadow-md">
-        {
-          isLoading ? <PulseLoader color="white" size={12} ></PulseLoader> :  "Signup"
-        }
+        {/* {isLoading ? (
+          <PulseLoader color="white" size={12}></PulseLoader>
+        ) : (
+          "Signup"
+        )} */}
+        Update
       </button>
-      <p className="text-center">
-        Alreeady have an account?{" "}
-        <Link href={"/login"} passHref>
-          <a className="text-blue-700">Login here</a>
-        </Link>
-      </p>
     </form>
   );
 };
 
-export default SignupForm;
+export default ProfileEditForm;

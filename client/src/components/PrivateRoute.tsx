@@ -1,38 +1,36 @@
-export default "lol"
-// import React, { useEffect, useState } from "react";
-// import { useRouter } from "next/router";
-// import { getUserFromLocalStorage } from "../utils/localStorage";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { getUserFromLocalStorage } from "../utils/localStorage";
 
-// interface Props {
-//   protectedRoutes: string[];
-//   children: JSX.Element;
-// }
+interface Props {
+  protectedRoutes: string[];
+  children: JSX.Element;
+}
 
-// const PrivateRoute = ({ protectedRoutes, children }: Props) => {
-//   const [isLoading, setIsLoading] = useState<boolean>(true);
-//   const router = useRouter();
+const PrivateRoute = ({ protectedRoutes, children }: Props) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const router = useRouter();
 
-//   const pathIsProtected = protectedRoutes.indexOf(router.pathname) !== -1;
+  const pathIsProtected = router.pathname.startsWith("/dashboard")
 
-//   useEffect(() => {
-//     const user = getUserFromLocalStorage();
-//     const isAuthenticated = user !== null;
-//     const protect = async () => {
-//       if (!isAuthenticated && pathIsProtected) {
-//         await router.replace("/signup");
-//         setIsLoading(false);
-//       } else {
-//         setIsLoading(false);
-//       }
-//     };
-//     protect();
-//   }, []);
+  useEffect(() => {
+    const user = getUserFromLocalStorage();
+    const isAuthenticated = user !== null;
+    const protect = async () => {
+      if (!isAuthenticated && pathIsProtected) {
+        await router.replace("/");
+      } else {
+        setIsLoading(false);
+      }
+    };
+    protect();
+  }, []);
 
-//   if (isLoading && pathIsProtected) {
-//     return <div className="black-screen"></div>;
-//   }
+  if (isLoading && pathIsProtected) {
+    return <div className="min-h-screen w-full absolute left-0 top-0 bg-gray-50"></div>;
+  }
 
-//   return children;
-// };
+  return children;
+};
 
-// export default PrivateRoute;
+export default PrivateRoute;
