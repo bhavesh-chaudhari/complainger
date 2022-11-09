@@ -14,8 +14,6 @@ const fetchComplaints = async ({queryKey}: {queryKey: QueryKey}) => {
   
   const data = res?.data
 
-  console.log(data?.data?.complaints, "fetchComplaints");
-
   return data?.data?.complaints;
 };
 
@@ -24,12 +22,37 @@ const fetchAllComplaints = async () => {
   
   const data = res?.data;
 
-  console.log(data?.data, "fetchAllComplaints");
   return data?.data
 };
 
 const createComplaint = (formValues: ComplaintType) => {
   return request({ url: `/complaints`, method: "post", data: formValues });
+};
+
+const getSingleComplaint = async ({ queryKey }: { queryKey: QueryKey }) => {
+
+  const id = queryKey[1]
+  
+  const res = await request({ url: `/complaints/${id}` });
+
+  const data = res?.data;
+
+  return data?.data as ComplaintType;
+};
+
+export const useSingleComplaintData = () => {
+  const { id, role } = useUserTokenInfo();
+
+   const router = useRouter();
+
+  return useQuery({
+    queryKey: ["complaints", router.query.id],
+    queryFn:  getSingleComplaint,
+    enabled: !!router.query.id,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+    refetchOnMount: false,
+  });
 };
 
 export const useComplaintsData = () => {

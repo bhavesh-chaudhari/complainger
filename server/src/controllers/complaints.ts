@@ -49,6 +49,12 @@ export const getSingleComplaint = async (req: Request, res: Response) => {
       },
     });
 
+    if(complaint?.userId !== req.user.id){
+      return res
+        .status(StatusCodes.FORBIDDEN)
+        .json({ message: "Can't access complaints of another user" });
+    }
+
     res.status(StatusCodes.OK).json({ data: complaint });
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json({ error });
