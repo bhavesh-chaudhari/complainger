@@ -14,6 +14,8 @@ const fetchComplaints = async ({queryKey}: {queryKey: QueryKey}) => {
   
   const data = res?.data
 
+  console.log(data?.data?.complaints, "fetchComplaints");
+
   return data?.data?.complaints;
 };
 
@@ -22,7 +24,7 @@ const fetchAllComplaints = async () => {
   
   const data = res?.data;
 
-  console.log(data);
+  console.log(data?.data, "fetchAllComplaints");
   return data?.data
 };
 
@@ -34,26 +36,14 @@ export const useComplaintsData = () => {
   const { id, role } = useUserTokenInfo();
 
   return useQuery({
-    queryKey: ["complaints", "user", id],
-    queryFn: fetchComplaints,
+    queryKey: role === "admin" ?  ["complaints"] : ["complaints", "user", id],
+    queryFn: role === "admin" ? fetchAllComplaints : fetchComplaints,
     enabled: !!id,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
     refetchOnMount: false
   });
 };
-
-export const useAllComplaintsData = ()=>{
-   const { id, role } = useUserTokenInfo();
-
-   return useQuery({
-     queryKey: ["complaints"],
-     queryFn: fetchAllComplaints,
-     refetchOnWindowFocus: false,
-     staleTime: Infinity,
-     refetchOnMount: false,
-   });
-}
 
 export const useCreateComplaint = ()=>{
 

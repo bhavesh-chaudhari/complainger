@@ -97,3 +97,11 @@ export const login = async (req: Request, res: Response) => {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
+
+export const checkAuth = (req: Request, res: Response) => {
+  try {
+    res.status(200).json({role: req.user?.role})
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
+  }
+};

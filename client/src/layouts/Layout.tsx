@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import PrivateRoute from "../components/PrivateRoute";
+import PrivateRoute from "../components/privateUI/PrivateRoute";
 import SidebarWithHeader from "../components/SidebarWithHeader";
 
 interface Props {

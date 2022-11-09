@@ -14,4 +14,6 @@ router.post("/signup", authController.signup);
 // @access  Public
 router.post("/login", authController.login);
 
+router.get("/checkAuth", ensureAuth, authController.checkAuth)
+
 export default router

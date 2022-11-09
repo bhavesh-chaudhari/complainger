@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { request } from "../utils/axios";
 import {
   addUserToLocalStorage,
@@ -6,6 +6,7 @@ import {
 } from "../utils/localStorage";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { useUserTokenInfo } from "./useUser";
 
 interface FormValues {
   email: string;
@@ -58,6 +59,31 @@ export const useSignup = () => {
     },
   });
 };
+
+const checkAuth = async ()=>{
+  const res = await request({url: "/auth/checkAuth"})
+
+  const data = res?.data
+
+  console.log(data)
+
+  const isAuthenticated = res?.status === 200
+
+  return {role: data?.role, isAuthenticated}
+}
+
+export const useAuth = ()=>{
+
+  const {id} = useUserTokenInfo()
+
+  return useQuery({
+    queryKey: ["auth"],
+    queryFn: checkAuth,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    // enabled: !!id
+  });
+}
 
 export const logout = async () => {
   removeUserFromLocalStorage();

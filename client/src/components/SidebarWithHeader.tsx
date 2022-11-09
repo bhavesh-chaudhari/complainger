@@ -14,6 +14,9 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import dynamic from "next/dynamic";
 import clsx from "clsx";
 import { useUserComplaintsCount } from "../hooks/useUser";
+import { useComplaintsData } from "../hooks/useComplaints";
+import UserOnlyUI from "./privateUI/UserOnlyUI";
+import AdminOnlyUI from "./privateUI/AdminOnlyUI";
 
 const MediaQuery = dynamic(
   () => {
@@ -41,6 +44,8 @@ const SidebarWithHeader = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   const {data: complaintsCount} = useUserComplaintsCount() 
+
+  const {data: allComplaintsCount} = useComplaintsData()
 
   useEffect(() => {
     const decoded = jwtDecode(getUserFromLocalStorage().token) as any;
@@ -122,7 +127,12 @@ const SidebarWithHeader = ({ children }: { children: React.ReactNode }) => {
                     </span>
                     {item.name === "Complaints" && (
                       <span className="bg-blue-600 absolute leading-none flex items-center justify-center text-white rounded-full ml-2 top-1/2 -translate-y-1/2 right-2 w-4 h-4 p-[10px] text-[12px]">
-                        {complaintsCount}
+                        <UserOnlyUI>
+                          {complaintsCount}
+                        </UserOnlyUI>
+                        <AdminOnlyUI>
+                          {allComplaintsCount?.length}
+                        </AdminOnlyUI>
                       </span>
                     )}
                   </a>

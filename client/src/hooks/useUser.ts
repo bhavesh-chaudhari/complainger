@@ -12,6 +12,11 @@ export const useUserTokenInfo = () => {
 
   useEffect(() => {
     const userFromLStorage = getUserFromLocalStorage();
+
+    if(!userFromLStorage){
+      return
+    }
+    
     const decoded = jwtDecode(userFromLStorage?.token) as {
       id: number | null;
       role: string | null;

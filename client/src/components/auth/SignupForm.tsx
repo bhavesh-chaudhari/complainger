@@ -31,10 +31,6 @@ const SignupForm = () => {
     signup(formValues)
   }
 
-  useEffect(()=>{
-    console.log(formValues)
-  }, [formValues])
-
   return (
     <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
       <div className="flex gap-4 flex-col md:flex-row">

@@ -6,7 +6,7 @@ import { BiFilter } from "react-icons/bi";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Modal from "./Modal";
-import { useComplaintsData, useAllComplaintsData } from "../hooks/useComplaints";
+import { useComplaintsData} from "../hooks/useComplaints";
 import { useUserTokenInfo } from "../hooks/useUser";
 import Complaint from "./complaint/Complaint";
 import ComplaintForm from "./complaint/ComplaintForm";
@@ -18,7 +18,7 @@ const ComplaintsMain = () => {
 
   const {role} = useUserTokenInfo()
   
-  const { isLoading, data, isSuccess } = role === "admin" ? useAllComplaintsData() : useComplaintsData()
+  const { isLoading, data, isSuccess } = useComplaintsData()
 
   console.log(data)
   
