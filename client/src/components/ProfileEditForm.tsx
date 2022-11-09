@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { PulseLoader } from "react-spinners";
 import { useSignup } from "../hooks/useAuth";
-import { useQueryClient, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { UserType } from "../types/user";
 
@@ -41,17 +40,6 @@ const ProfileEditForm = ({ user, editing, setEditing }: Props) => {
   const id = user?.id;
 
   console.log(id);
-
-  const { status, data } = useQuery({
-    queryKey: ["user", id],
-    queryFn: () => {
-      return axios.get(`http://localhost:5000/api/v1/users/${id}`);
-    },
-    staleTime: Infinity,
-    enabled: !!id,
-  });
-
-  // console.log(status, data);
 
   return (
     <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">

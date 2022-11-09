@@ -19,9 +19,9 @@ export const ensureAuth = async (
 
     // console.log(decoded)
 
-    const { id, email } = decoded as any;
+    const { id, email, role } = decoded as {id: number, email: string, role: string};
 
-    req.user = { id, email };
+    req.user = { id, email, role };
     next();
   } catch (error) {
     console.log(error)
@@ -49,10 +49,10 @@ export const ensureAdmin = async (
      if(role === "admin"){
       return next()
      }else{
-      res.status(StatusCodes.FORBIDDEN).json({message: "Access Denied"})
+      return res.status(StatusCodes.FORBIDDEN).json({message: "Access Denied"})
      }
   } catch (error) {
     console.log(error)
-    res.status(400).json({ error: "Not authorized to access this route" });
+    return res.status(400).json({ error: "Not authorized to access this route" });
   }
 };

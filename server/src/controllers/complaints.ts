@@ -56,7 +56,7 @@ export const getSingleComplaint = async (req: Request, res: Response) => {
 };
 
 export const createComplaint = async (req: Request, res: Response) => {
-  const { title, description, userId, type } = req.body;
+  const { title, description, type } = req.body;
 
   try {
     const createdComplaint = await Complaint.create({
@@ -64,7 +64,7 @@ export const createComplaint = async (req: Request, res: Response) => {
         title,
         description,
         type,
-        userId,
+        userId: Number(req.user?.id),
       },
     });
 
@@ -76,6 +76,7 @@ export const createComplaint = async (req: Request, res: Response) => {
 
 export const updateComplaint = async (req: Request, res: Response) => {
   try {
+
     if (Object.keys(req.body).length === 0) {
       return res
         .status(StatusCodes.NOT_ACCEPTABLE)

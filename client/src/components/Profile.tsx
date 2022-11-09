@@ -6,6 +6,7 @@ import { formatDistance, parseISO } from "date-fns";
 import ProfileEditForm from "./ProfileEditForm";
 import { Pattern1 } from "./svgs";
 import clsx from "clsx";
+import { useUserComplaintsCount } from "../hooks/useUser";
 
 const Profile = () => {
   const [user, setUser] = useState<UserType | null>(null);
@@ -13,6 +14,8 @@ const Profile = () => {
   useEffect(() => {
     setUser(getUserFromLocalStorage());
   }, []);
+
+  const {data: complaintsCount} = useUserComplaintsCount()
 
   const userData = Object.entries(user || {});
 
@@ -82,7 +85,7 @@ const Profile = () => {
                     Complaints Made
                   </td>
                   <td className="border py-2 px-4 w-[50%] border-gray-300 border-collapse">
-                    {user?._count.complaints}
+                    {complaintsCount}
                   </td>
                 </tr>
                 {user?.role === "student" && (

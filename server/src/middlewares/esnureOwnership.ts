@@ -23,11 +23,11 @@ export const ensureOwnership = (
     if (id === Number(req.params.id) || role === "admin") {
       return next();
     } else {
-      res
+      return res
         .status(StatusCodes.FORBIDDEN)
         .json({ message: "Can't access complaints of another user" });
     }
   } catch (error) {
-    res.status(400).json({ error: "Not authorized to access this route" });
+    return res.status(400).json({ error: "Not authorized to access this route" });
   }
 };

@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth"
 import complaintRoutes from "./routes/complaints"
 import userRoutes from "./routes/user"
 import { ensureAuth } from "./middlewares/auth";
+import { ensureOwnership } from "./middlewares/esnureOwnership";
 
 const app: Application = express();
 app.use(express.json());

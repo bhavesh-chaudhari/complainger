@@ -1,36 +1,37 @@
-import { useState, useEffect } from "react";
-import { QueryKey, useQuery } from "@tanstack/react-query";
+import { QueryKey, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { ComplaintType } from "../types/complaint";
 import { request } from "../utils/axios";
-import { getUserFromLocalStorage } from "../utils/localStorage";
-import jwtDecode from "jwt-decode";
-import { UserType } from "../types/user";
+import { useUserTokenInfo } from "./useUser";
+import {toast} from "react-toastify"
+import { useRouter } from "next/router";
 
-const useUserInfo = () => {
-  const [id, setId] = useState<number | null>(null);
-  const [role, setRole] = useState<string | null>(null);
+const fetchComplaints = async ({queryKey}: {queryKey: QueryKey}) => {
+  const id = queryKey[2]
 
-  useEffect(() => {
-    const userFromLStorage = getUserFromLocalStorage();
-    const decoded = jwtDecode(userFromLStorage?.token) as {
-      id: number | null;
-      role: string | null;
-    };
+  console.log("fetching complaints for users")
 
-    setId(decoded.id);
-    setRole(decoded.role);
-  }, []);
+  const res = await request({ url: `/complaints/user/${id}` });
+  
+  const data = res?.data
 
-  return { id, role };
+  return data?.data?.complaints;
 };
 
-const fetchComplaints = ({queryKey}: {queryKey: QueryKey}) => {
+const fetchAllComplaints = async () => {
+  const res = await request({ url: `/complaints` });
+  
+  const data = res?.data;
 
-  const id = queryKey[2]
-  return request({ url: `/complaints/user/${id}` });
+  console.log(data);
+  return data?.data
+};
+
+const createComplaint = (formValues: ComplaintType) => {
+  return request({ url: `/complaints`, method: "post", data: formValues });
 };
 
 export const useComplaintsData = () => {
-  const { id, role } = useUserInfo();
+  const { id, role } = useUserTokenInfo();
 
   return useQuery({
     queryKey: ["complaints", "user", id],
@@ -41,3 +42,41 @@ export const useComplaintsData = () => {
     refetchOnMount: false
   });
 };
+
+export const useAllComplaintsData = ()=>{
+   const { id, role } = useUserTokenInfo();
+
+   return useQuery({
+     queryKey: ["complaints"],
+     queryFn: fetchAllComplaints,
+     refetchOnWindowFocus: false,
+     staleTime: Infinity,
+     refetchOnMount: false,
+   });
+}
+
+export const useCreateComplaint = ()=>{
+
+  const queryClient = useQueryClient()
+  const { id, role } = useUserTokenInfo();
+  const router = useRouter()
+
+  return useMutation({
+    mutationFn: createComplaint,
+    onSuccess: async (data)=>{
+      if(data?.status === 200){
+        console.log(data.data.data.id);
+        queryClient.setQueryData(["users", "complaintsCount", id], (oldData: any) => oldData + 1);
+        queryClient.setQueryData(["complaints", "user", id], (oldData: any)=>{
+          console.log(oldData)
+          return [...oldData, data.data.data]
+        });
+        toast("Complant Created", {
+          type: "success",
+          position: "bottom-right",
+        });
+        await router.back()
+      }
+    }
+  })
+}
