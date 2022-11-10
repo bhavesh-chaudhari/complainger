@@ -8,4 +8,9 @@ export interface ComplaintType {
   userId?: number;
   createdAt?: string;
   updatedAt?: string;
+  created_by: {
+    first_name: string,
+    last_name: string,
+    role: string
+  }
 }

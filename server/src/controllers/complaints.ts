@@ -13,6 +13,7 @@ export const getAllComplaints = async (req: Request, res: Response) => {
           select: {
             first_name: true,
             last_name: true,
+            role: true
           },
         },
       },

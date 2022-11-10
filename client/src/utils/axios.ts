@@ -1,9 +1,6 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { API_BASE_URL } from "./baseUrl";
 import { getUserFromLocalStorage } from "./localStorage";
-import { AxiosError } from "axios";
-import { AxiosRequestConfig } from "axios";
-import { AxiosResponse } from "axios";
 
 const client = axios.create({ baseURL: API_BASE_URL });
 

@@ -17,6 +17,8 @@ import { useUserComplaintsCount } from "../hooks/useUser";
 import { useComplaintsData } from "../hooks/useComplaints";
 import UserOnlyUI from "./privateUI/UserOnlyUI";
 import AdminOnlyUI from "./privateUI/AdminOnlyUI";
+import { SidebarLinkType } from "../types/linkItem";
+import { BiDetail } from "react-icons/bi";
 
 const MediaQuery = dynamic(
   () => {
@@ -26,6 +28,37 @@ const MediaQuery = dynamic(
     ssr: false,
   }
 );
+
+const LinkItem = ({
+  item,
+  complaintsCount,
+  allComplaintsCount,
+}: SidebarLinkType) => {
+  const router = useRouter();
+
+  return (
+    <li key={item.id} className="w-[90%] flex">
+      <Link href={item.path} passHref>
+        <a
+          className={clsx(
+            "flex w-full relative transition-all duration-200 shadow-sm items-center border px-4 py-2 gap-2 rounded-r-full bg-gray-50 hover:bg-blue-50",
+            router.pathname === item.path && "border-blue-400",
+            router.pathname !== item.path && "border-gray-100"
+          )}
+        >
+          <span className="leading-none translate-y-[2px]">{item.icon}</span>
+          <span className="leading-none font-semibold">{item.name}</span>
+          {item.name === "Complaints" && (
+            <span className="bg-blue-600 absolute leading-none flex items-center justify-center text-white rounded-full ml-2 top-1/2 -translate-y-1/2 right-2 w-4 h-4 p-[10px] text-[12px]">
+              <UserOnlyUI>{complaintsCount}</UserOnlyUI>
+              <AdminOnlyUI>{allComplaintsCount}</AdminOnlyUI>
+            </span>
+          )}
+        </a>
+      </Link>
+    </li>
+  );
+};
 
 const ComplaintManagerHeading = ({ user }: { user: UserType | null }) => {
   return (
@@ -41,11 +74,13 @@ const ComplaintManagerHeading = ({ user }: { user: UserType | null }) => {
 const SidebarWithHeader = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UserType | null>(null);
 
+  const { data: complaintsCount } = useUserComplaintsCount();
+
+  const { data: allComplaints } = useComplaintsData();
+
+  const allComplaintsCount = allComplaints?.length;
+
   const router = useRouter();
-
-  const {data: complaintsCount} = useUserComplaintsCount() 
-
-  const {data: allComplaintsCount} = useComplaintsData()
 
   useEffect(() => {
     const decoded = jwtDecode(getUserFromLocalStorage().token) as any;
@@ -68,6 +103,15 @@ const SidebarWithHeader = ({ children }: { children: React.ReactNode }) => {
     },
     {
       id: 3,
+      name: "Report",
+      path: "/dashboard/report",
+      icon: (
+          <BiDetail size={18}></BiDetail>
+      ),
+      type: "admin",
+    },
+    {
+      id: 4,
       name: "Messages",
       path: "/dashboard/messages",
       icon: <SiGooglemessages size={18}></SiGooglemessages>,
@@ -109,35 +153,24 @@ const SidebarWithHeader = ({ children }: { children: React.ReactNode }) => {
         </MediaQuery>
         <ul className="flex w-[100%] flex-col gap-6 mt-4 md:mt-0">
           {sidebarLinks.map((item) => {
-            return (
-              <li key={item.id} className="w-[90%] flex">
-                <Link href={item.path} passHref>
-                  <a
-                    className={clsx(
-                      "flex w-full relative transition-all duration-200 shadow-sm items-center border px-4 py-2 gap-2 rounded-r-full bg-gray-50 hover:bg-blue-50",
-                      router.pathname === item.path && "border-blue-400",
-                      router.pathname !== item.path && "border-gray-100"
-                    )}
-                  >
-                    <span className="leading-none translate-y-[2px]">
-                      {item.icon}
-                    </span>
-                    <span className="leading-none font-semibold">
-                      {item.name}
-                    </span>
-                    {item.name === "Complaints" && (
-                      <span className="bg-blue-600 absolute leading-none flex items-center justify-center text-white rounded-full ml-2 top-1/2 -translate-y-1/2 right-2 w-4 h-4 p-[10px] text-[12px]">
-                        <UserOnlyUI>
-                          {complaintsCount}
-                        </UserOnlyUI>
-                        <AdminOnlyUI>
-                          {allComplaintsCount?.length}
-                        </AdminOnlyUI>
-                      </span>
-                    )}
-                  </a>
-                </Link>
-              </li>
+            return item.type === "admin" ? (
+              <AdminOnlyUI key={item.id}>
+                <span key={item.id}>
+                  <LinkItem
+                    item={item}
+                    complaintsCount={complaintsCount}
+                    allComplaintsCount={allComplaintsCount}
+                  ></LinkItem>
+                </span>
+              </AdminOnlyUI>
+            ) : (
+              <span key={item.id} >
+                <LinkItem
+                  item={item}
+                  complaintsCount={complaintsCount}
+                  allComplaintsCount={allComplaintsCount}
+                ></LinkItem>
+              </span>
             );
           })}
         </ul>
