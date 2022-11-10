@@ -23,11 +23,11 @@ const TotalComplaintsPieChart = () => {
     const {data} = useComplaintsData()
 
     const studentComplaints = data?.filter((complaint: ComplaintType)=>{
-        return complaint.created_by.role === "student"
+        return complaint.created_by?.role === "student"
     })
 
     const facultyComplaints = data?.filter((complaint: ComplaintType) => {
-      return complaint.created_by.role === "faculty";
+      return complaint.created_by?.role === "faculty";
     });
 
     const chartData = {

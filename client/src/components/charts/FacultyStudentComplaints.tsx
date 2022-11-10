@@ -14,7 +14,7 @@ const options: ChartOptions = {
     },
     title: {
       display: true,
-      text: "Complaints made by sudents vs faculties in last week",
+      text: "Per day complaints by sudents vs faculties in last week",
     },
   },
 };
@@ -40,9 +40,9 @@ const FacultyStudentComplaints = () => {
         data: dates.map((date) => {
           const modified_data = data?.filter((complaint: ComplaintType) => {
             return (
-              new Date(complaint.createdAt as string).setHours(0, 0, 0, 0) ===
+              new Date(complaint?.createdAt as string).setHours(0, 0, 0, 0) ===
                 date.setHours(0, 0, 0, 0) &&
-              complaint.created_by.role === "student"
+              (complaint?.created_by?.role === "student")
             );
           });
 
@@ -55,9 +55,9 @@ const FacultyStudentComplaints = () => {
         data: dates.map((date) => {
           const modified_data = data?.filter((complaint: ComplaintType) => {
             return (
-              new Date(complaint.createdAt as string).setHours(0, 0, 0, 0) ===
+              new Date(complaint?.createdAt as string).setHours(0, 0, 0, 0) ===
                 date.setHours(0, 0, 0, 0) &&
-              complaint.created_by.role === "faculty"
+              !!(complaint?.created_by?.role === "faculty")
             );
           });
 

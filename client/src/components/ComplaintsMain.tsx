@@ -50,11 +50,11 @@ const ComplaintsMain = () => {
 
   return (
     <>
-      {router.query.modal === "complaint_form" && (
+      {/* {router.query.modal === "complaint_form" && (
         <Modal>
           <ComplaintForm></ComplaintForm>
         </Modal>
-      )}
+      )} */}
       <div className="w-[100%] px-16 py-8 flex justify-center items-stretch">
         <div className="w-full flex bg-white rounded-lg justify-center">
           <div className="py-4 w-full">

@@ -7,7 +7,7 @@ import authRoutes from "./routes/auth"
 import complaintRoutes from "./routes/complaints"
 import userRoutes from "./routes/user"
 import { ensureAuth } from "./middlewares/auth";
-import { ensureOwnership } from "./middlewares/esnureOwnership";
+import rateLimit from "express-rate-limit";
 
 const app: Application = express();
 app.use(express.json());
@@ -21,6 +21,16 @@ app.use(
     credentials: true,
   })
 );
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 150, // Limit each IP to 150 requests per `window` (here, per 15 minutes)
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+// Apply the rate limiting middleware to all requests
+app.use(limiter);
 
 // test route
 app.get("/", (req: Request, res: Response) => {

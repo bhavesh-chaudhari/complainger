@@ -5,8 +5,8 @@ import { MdClose } from "react-icons/md";
 const Modal = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
-  const closeModal = () => {
-    router.back();
+  const closeModal = async () => {
+    await router.back();
   };
 
   return (

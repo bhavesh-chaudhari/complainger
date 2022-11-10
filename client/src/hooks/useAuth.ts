@@ -67,9 +67,9 @@ const checkAuth = async ()=>{
 
   console.log(data)
 
-  const isAuthenticated = res?.status === 200
+  const isAuthenticated: boolean = res?.status === 200
 
-  return {role: data?.role, isAuthenticated}
+  return {role: data?.role as string, isAuthenticated} 
 }
 
 export const useAuth = ()=>{

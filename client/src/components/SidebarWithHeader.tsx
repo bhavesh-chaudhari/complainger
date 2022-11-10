@@ -105,9 +105,7 @@ const SidebarWithHeader = ({ children }: { children: React.ReactNode }) => {
       id: 3,
       name: "Report",
       path: "/dashboard/report",
-      icon: (
-          <BiDetail size={18}></BiDetail>
-      ),
+      icon: <BiDetail size={18}></BiDetail>,
       type: "admin",
     },
     {
@@ -164,7 +162,7 @@ const SidebarWithHeader = ({ children }: { children: React.ReactNode }) => {
                 </span>
               </AdminOnlyUI>
             ) : (
-              <span key={item.id} >
+              <span key={item.id}>
                 <LinkItem
                   item={item}
                   complaintsCount={complaintsCount}
@@ -174,7 +172,11 @@ const SidebarWithHeader = ({ children }: { children: React.ReactNode }) => {
             );
           })}
         </ul>
-        <Link href={"/dashboard/complaints/create"}>
+        <Link
+          href={`${router.pathname}?modal=complaint_form`}
+          as={"/dashboard/complaints/create"}
+          passHref
+        >
           <a className="bg-blue-500 text-white w-[60%] border opacity-90 hover:bg-blue-500 hover:text-white duration-300 transition-all border-blue-100 text-start gap-1 flex items-center justify-center p-2 rounded-r-full shadow-md">
             <span>
               <AiOutlinePlusCircle
@@ -182,9 +184,7 @@ const SidebarWithHeader = ({ children }: { children: React.ReactNode }) => {
                 size={"1.3rem"}
               ></AiOutlinePlusCircle>
             </span>
-            <span className="leading-none text-lg -translate-y-[2px]">
-              Create
-            </span>
+              <span className="leading-none text-lg -translate-y-[2px]">Create</span>
           </a>
         </Link>
         <button
