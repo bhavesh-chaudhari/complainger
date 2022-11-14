@@ -34,7 +34,7 @@ const ComplaintForm = () => {
         <div className="flex flex-col gap-2">
           <label htmlFor="title">Title</label>
           <input
-            className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             type="text"
             name="title"
             id="title"
@@ -46,7 +46,7 @@ const ComplaintForm = () => {
         <div className="flex flex-col gap-2">
           <label htmlFor="description">Description</label>
           <textarea
-            className="bg-gray-50 resize-y h-32 min-h-[100px] max-h-52 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 resize-y h-32 min-h-[100px] max-h-52 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             name="description"
             id="description"
             value={formValues.description}
@@ -60,7 +60,7 @@ const ComplaintForm = () => {
             onChange={handleChange}
             id="type"
             name="type"
-            className="bg-gray-50 appearance-none border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 appearance-none border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             defaultValue={""}
           >
             <option value="" disabled hidden></option>

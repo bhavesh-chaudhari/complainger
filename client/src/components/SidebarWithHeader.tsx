@@ -38,14 +38,15 @@ const LinkItem = ({
 
   return (
     <li key={item.id} className="w-[90%] flex">
-      <Link href={item.path} passHref>
-        <a
-          className={clsx(
-            "flex w-full relative transition-all duration-200 shadow-sm items-center border px-4 py-2 gap-2 rounded-r-full bg-gray-50 hover:bg-blue-50",
-            router.pathname === item.path && "border-blue-400",
-            router.pathname !== item.path && "border-gray-100"
-          )}
-        >
+      <Link
+        href={item.path}
+        passHref
+        className={clsx(
+          "flex w-full relative transition-all duration-200 shadow-sm items-center border px-4 py-2 gap-2 rounded-r-full bg-gray-50 hover:bg-blue-50",
+          router.pathname === item.path && "border-blue-400",
+          router.pathname !== item.path && "border-gray-100"
+        )}
+      >
           <span className="leading-none translate-y-[2px]">{item.icon}</span>
           <span className="leading-none font-semibold">{item.name}</span>
           {item.name === "Complaints" && (
@@ -54,7 +55,6 @@ const LinkItem = ({
               <AdminOnlyUI>{allComplaintsCount}</AdminOnlyUI>
             </span>
           )}
-        </a>
       </Link>
     </li>
   );
@@ -176,16 +176,17 @@ const SidebarWithHeader = ({ children }: { children: React.ReactNode }) => {
           href={`${router.pathname}?modal=complaint_form`}
           as={"/dashboard/complaints/create"}
           passHref
+          className="bg-blue-500 text-white w-[60%] border opacity-90 hover:bg-blue-500 hover:text-white duration-300 transition-all border-blue-100 text-start gap-1 flex items-center justify-center p-2 rounded-r-full shadow-md"
         >
-          <a className="bg-blue-500 text-white w-[60%] border opacity-90 hover:bg-blue-500 hover:text-white duration-300 transition-all border-blue-100 text-start gap-1 flex items-center justify-center p-2 rounded-r-full shadow-md">
             <span>
               <AiOutlinePlusCircle
                 color="inherit"
                 size={"1.3rem"}
               ></AiOutlinePlusCircle>
             </span>
-              <span className="leading-none text-lg -translate-y-[2px]">Create</span>
-          </a>
+            <span className="leading-none text-lg -translate-y-[2px]">
+              Create
+            </span>
         </Link>
         <button
           onClick={handleLogout}

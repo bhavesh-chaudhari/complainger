@@ -107,7 +107,7 @@ const ComplaintsMain = () => {
                   <select
                     id="filter"
                     name="filter"
-                    className="bg-transparent focus:outline-none rounded-md px-1 pr-2 py-1 pl-6 appearance-none border border-gray-300 text-gray-900 text-sm block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-transparent focus:outline-none rounded-md px-1 pr-2 py-1 pl-6 appearance-none border border-gray-300 text-gray-900 text-sm block "
                     defaultValue={""}
                   >
                     <option value="" disabled hidden>
@@ -126,13 +126,12 @@ const ComplaintsMain = () => {
                       href={`${router.pathname}?modal=complaint_form`}
                       as={"/dashboard/complaints/create"}
                       passHref
+                      className="flex items-center gap-1 bg-slate-50 py-1 px-2 rounded-md"
                     >
-                      <a className="flex items-center gap-1 bg-slate-50 py-1 px-2 rounded-md">
                         <span className="translate-y-[1.5px]">
                           <AiOutlinePlus></AiOutlinePlus>
                         </span>
                         <span>Create New</span>
-                      </a>
                     </Link>
                   </div>
                 </UserOnlyUI>

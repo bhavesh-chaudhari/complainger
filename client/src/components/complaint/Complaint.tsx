@@ -23,8 +23,11 @@ const Complaint = (props: any) => {
   const { role } = useUserTokenInfo();
 
   return (
-    <Link href={`/dashboard/complaints/${id}/${convertToSlug(title)}`} passHref>
-      <a className="p-4 py-6 pr-8 hover:text-blue-500 transition-all duration-200 cursor-pointer border border-gray-100 flex flex-col">
+    <Link
+      className="p-4 py-6 pr-8 hover:text-blue-500 transition-all duration-200 cursor-pointer border border-gray-100 flex flex-col"
+      href={`/dashboard/complaints/${id}/${convertToSlug(title)}`}
+      passHref
+    >
         <div className="">
           <h4 className="truncate">
             <span className="font-bold opacity-90">{title}</span> -{" "}
@@ -74,7 +77,6 @@ const Complaint = (props: any) => {
             </div>
           </div>
         </div>
-      </a>
     </Link>
   );
 };

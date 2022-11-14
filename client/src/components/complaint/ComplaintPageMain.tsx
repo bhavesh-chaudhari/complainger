@@ -23,11 +23,13 @@ const ComplaintPageMain = () => {
   return (
     <div className="w-[100%] px-16 py-8 flex justify-center items-stretch">
       <div className="w-full flex p-8 flex-col bg-white rounded-lg justify-center">
-        <Link passHref href={"/dashboard/complaints"}>
-          <a className="mb-6 w-max hover:text-blue-400 transition-all duration-300">
+        <Link
+          className="mb-6 w-max hover:text-blue-400 transition-all duration-300"
+          passHref
+          href={"/dashboard/complaints"}
+        >
             <span>{"<< "}</span>
             <span className="text-black">Back</span>
-          </a>
         </Link>
         <div>
           <h1 className="text-2xl font-semibold opacity-80">
@@ -41,8 +43,7 @@ const ComplaintPageMain = () => {
           <p>{currentComplaint?.description}</p>
         </div>
         <div>
-            <div>
-            </div>
+          <div></div>
           <p>
             {currentComplaint?.createdAt &&
               format(

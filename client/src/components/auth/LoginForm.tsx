@@ -32,7 +32,7 @@ const LoginForm = () => {
           Email
         </label>
         <input
-          className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
           type="email"
           name="email"
           id="email"
@@ -45,7 +45,7 @@ const LoginForm = () => {
           Password
         </label>
         <input
-          className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
           type="text"
           name="password"
           id="password"
@@ -62,8 +62,8 @@ const LoginForm = () => {
       </button>
       <p className="text-center">
         Don't have an account?{" "}
-        <Link href={"/"} passHref>
-          <a className="text-blue-700">Signup here</a>
+        <Link className="text-blue-700" href={"/"} passHref>
+          Signup here
         </Link>
       </p>
     </form>

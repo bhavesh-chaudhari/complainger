@@ -39,7 +39,7 @@ const SignupForm = () => {
             First Name
           </label>
           <input
-            className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             type="text"
             name="first_name"
             id="first_name"
@@ -53,7 +53,7 @@ const SignupForm = () => {
             Last Name
           </label>
           <input
-            className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             type="last_name"
             name="last_name"
             id="last_name"
@@ -68,7 +68,7 @@ const SignupForm = () => {
           Email
         </label>
         <input
-          className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           type="email"
           name="email"
           id="email"
@@ -86,7 +86,7 @@ const SignupForm = () => {
             onChange={handleChange}
             id="department"
             name="department"
-            className="bg-gray-50 appearance-none border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 appearance-none border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             defaultValue={""}
           >
             <option value="" disabled hidden></option>
@@ -102,7 +102,7 @@ const SignupForm = () => {
             id="role"
             name="role"
             onChange={handleChange}
-            className="bg-gray-50 appearance-none border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 appearance-none border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             defaultValue={""}
           >
             <option value="" disabled hidden></option>
@@ -124,7 +124,7 @@ const SignupForm = () => {
               +91
             </span>
             <input
-              className="bg-gray-50 z-2 pl-14 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 z-2 pl-14 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               type="text"
               name="mobile_number"
               id="mobile_number"
@@ -142,7 +142,7 @@ const SignupForm = () => {
             id="gender"
             name="gender"
             onChange={handleChange}
-            className="bg-gray-50 appearance-none border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 appearance-none border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             defaultValue={""}
           >
             <option value="" disabled hidden></option>
@@ -157,7 +157,7 @@ const SignupForm = () => {
           Password
         </label>
         <input
-          className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-gray-50 outline-none border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           type="text"
           name="password"
           id="password"
@@ -167,14 +167,16 @@ const SignupForm = () => {
         />
       </div>
       <button className="bg-blue-500 h-10 flex items-center justify-center text-white font-bold mt-4 py-2 uppercase hover:opacity-90 transition-opacity rounded-md shadow-md">
-        {
-          isLoading ? <PulseLoader color="white" size={12} ></PulseLoader> :  "Signup"
-        }
+        {isLoading ? (
+          <PulseLoader color="white" size={12}></PulseLoader>
+        ) : (
+          "Signup"
+        )}
       </button>
       <p className="text-center">
         Alreeady have an account?{" "}
-        <Link href={"/login"} passHref>
-          <a className="text-blue-700">Login here</a>
+        <Link className="text-blue-700" href={"/login"} passHref>
+          Login here
         </Link>
       </p>
     </form>

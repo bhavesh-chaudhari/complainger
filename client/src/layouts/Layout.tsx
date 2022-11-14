@@ -18,8 +18,6 @@ const PageLayout = ({ children }: Props): JSX.Element => {
     "/dashboard",
   ];
 
-  console.log(router.query.modal);
-
   return (
     <PrivateRoute protectedRoutes={protectedRoutes}>
       <>

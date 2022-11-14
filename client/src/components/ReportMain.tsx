@@ -101,6 +101,22 @@ const ReportMain = () => {
         </div>
       </div>
       <div className="my-6 px-16 flex flex-col gap-4">
+        <div>
+          <h3 className="font-bold opacity-70 text-xl mb-6">Visualizations</h3>
+          <div className="flex items-center gap-8 flex-col justify-center w-full">
+            <div className="bg-white w-full h-[300px] p-4 border rounded-md border-gray-100">
+              <FacultyStudentComplaints></FacultyStudentComplaints>
+            </div>
+            <div className="w-full gap-8 flex justify-center items-center">
+              <div className="bg-white py-4 w-full h-[300px] border border-gray-200 rounded-md">
+                <TotalComplaintsPieChart></TotalComplaintsPieChart>
+              </div>
+              <div className="bg-white py-4 w-full h-[300px] border border-gray-200 rounded-md">
+                <ComplaintTypePloarAreaChart></ComplaintTypePloarAreaChart>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="flex flex-col gap-4">
           <h3 className="font-bold opacity-70 text-xl">General Information</h3>
           <div className="flex flex-col gap-4 overflow-hidden relative">
@@ -199,22 +215,6 @@ const ReportMain = () => {
                     : "Complaints"}{" "}
                   Resolved
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <h3 className="font-bold opacity-70 text-xl mb-6">Visualizations</h3>
-          <div className="flex items-center gap-8 flex-col justify-center w-full">
-            <div className="bg-white w-full h-[300px] p-4 border rounded-md border-gray-100">
-              <FacultyStudentComplaints></FacultyStudentComplaints>
-            </div>
-            <div className="w-full gap-8 flex justify-center items-center">
-              <div className="bg-white py-4 w-full h-[300px] border border-gray-200 rounded-md">
-                <TotalComplaintsPieChart></TotalComplaintsPieChart>
-              </div>
-              <div className="bg-white py-4 w-full h-[300px] border border-gray-200 rounded-md">
-                <ComplaintTypePloarAreaChart></ComplaintTypePloarAreaChart>
               </div>
             </div>
           </div>
