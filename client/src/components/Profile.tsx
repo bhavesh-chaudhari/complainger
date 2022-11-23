@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Avatar from "react-avatar";
-import { UserType } from "../types/user";
-import { getUserFromLocalStorage } from "../utils/localStorage";
-import { formatDistance, parseISO } from "date-fns";
-import ProfileEditForm from "./ProfileEditForm";
-import { Pattern1 } from "./svgs";
-import clsx from "clsx";
-import { useUserComplaintsCount } from "../hooks/useUser";
+import React, { useState, useEffect } from 'react';
+import Avatar from 'react-avatar';
+import { UserType } from '../types/user';
+import { getUserFromLocalStorage } from '../utils/localStorage';
+import { format, formatDistance, parseISO } from 'date-fns';
+import ProfileEditForm from './ProfileEditForm';
+import { Pattern1 } from './svgs';
+import clsx from 'clsx';
+import { useUserComplaintsCount } from '../hooks/useUser';
 
 const Profile = () => {
   const [user, setUser] = useState<UserType | null>(null);
@@ -15,7 +15,7 @@ const Profile = () => {
     setUser(getUserFromLocalStorage());
   }, []);
 
-  const {data: complaintsCount} = useUserComplaintsCount()
+  const { data: complaintsCount } = useUserComplaintsCount();
 
   const userData = Object.entries(user || {});
 
@@ -36,20 +36,20 @@ const Profile = () => {
           </div>
           <div className="relative z-10 bg-white">
             <h3 className="w-full font-bold text-center text-xl">
-              <span className="text-blue-500">{user?.first_name}</span>{" "}
+              <span className="text-blue-500">{user?.first_name}</span>{' '}
               {user?.last_name}
             </h3>
             <div className="text-center uppercase text-xs mt-2 font-semibold opacity-80 text-gray-700">
               {user && (
                 <p>
-                  Joined{" "}
+                  Joined{' '}
                   {formatDistance(
                     new Date(String(user?.createdAt)),
                     new Date(),
                     {
                       addSuffix: true,
                     }
-                  ).replace("about ", "")}
+                  ).replace('about ', '')}
                 </p>
               )}
             </div>
@@ -65,17 +65,18 @@ const Profile = () => {
                           `font-semibold capitalize border py-2 px-4 w-[50%] border-gray-300 border-collapse`
                         )}
                       >
-                        {item[0].replace("_", " ")}
+                        {item[0].replace('_', ' ')}
                       </td>
                       <td
                         className={clsx(
-                          "border py-2 px-4 w-[50%] border-gray-300 border-collapse"
-                        ,
-                        (["gender"].includes(item[0])) && "capitalize",
-                        (["department"].includes(item[0])) && "uppercase"
+                          'border py-2 px-4 w-[50%] border-gray-300 border-collapse',
+                          ['gender'].includes(item[0]) && 'capitalize',
+                          ['department'].includes(item[0]) && 'uppercase'
                         )}
                       >
-                        {String(item[1])}
+                        {['createdAt'].includes(item[0])
+                          ? format(new Date(item[1]), 'dd-MM-yyyy')
+                          : String(item[1])}
                       </td>
                     </tr>
                   );
@@ -88,7 +89,7 @@ const Profile = () => {
                     {complaintsCount}
                   </td>
                 </tr>
-                {user?.role === "student" && (
+                {user?.role === 'student' && (
                   <tr>
                     <td className="border py-2 px-4 w-[50%] border-gray-300 border-collapse">
                       Enrollment number
@@ -102,7 +103,7 @@ const Profile = () => {
             </table>
           </div>
           <div className="absolute opacity-20 w-full h-full top-4 origin-top-left left-0 -z-1">
-            <Pattern1 width={"100%"} height={"100%"}></Pattern1>
+            <Pattern1 width={'100%'} height={'100%'}></Pattern1>
           </div>
         </div>
         <div className="py-8 px-12 w-[50%]">
