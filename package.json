@@ -1,0 +1,37 @@
+{
+  "name": "complaint-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx pretty-quick --staged ng lint ng test",
+      "pre-push": "ng build --aot true"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhavesh-chaudhari/complaint-manager.git"
+  },
+  "keywords": [],
+  "author": "Bhavesh Chaudhari <bhic2030@gmail.com> (https://github.com/bhavesh-chaudhari/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bhavesh-chaudhari/complaint-manager/issues"
+  },
+  "homepage": "https://github.com/bhavesh-chaudhari/complaint-manager#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "eslint": "^8.28.0",
+    "husky": "^8.0.2",
+    "prettier": "^2.8.0",
+    "pretty-quick": "^3.1.3"
+  }
+}
