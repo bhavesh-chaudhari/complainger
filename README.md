@@ -96,11 +96,13 @@ Since this is a hobby project, I have limited time to work on it. So I am trying
 - ~~Building Core Logic~~
 - ~~Add Charts~~
 - ~~Adding Download as PDF option for reports~~
+- Use the app directory in Next.js
 - Progressive Web App Setup
 - Add Messaging Feature
 - Add Notification system
 - Add Google Oauth
 - Dark Mode
+- Setup Refresh Tokens
 - Making api end-to-end type safe
 
 ## License
