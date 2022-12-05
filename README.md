@@ -87,8 +87,6 @@ npm run dev #start express.js server in development mode
 - ORM - [Prisma](https://www.prisma.io/)
 - Database - [PostgreSQL](https://www.postgresql.org/)
 
-**NB:** One can build the same project without using express.js for api routes since Next.js API Routes are sufficient for this app's requirement. If you want to know my reason to use this setup then [read this](./docs/the-decision-to-use-expressjs-over-nextjs-api-routes-alone.md).
-
 ## Roadmap
 
 Since this is a hobby project, I have limited time to work on it. So I am trying to build this project incrementally. Given below is a rough roadmap I intend to follow.
