@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { prisma } from "../utils/prisma";
-import bcrypt from "bcryptjs";
 
 const User = prisma.user;
 
