@@ -2,9 +2,9 @@ name: Server CI
 
 on:
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]  # This will run on PRs targeting main
   push:
-    branches: [ main, master ]
+    branches: [ main ]  # This will run on direct pushes to main
 
 jobs:
   build:
@@ -17,11 +17,29 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'  # Adjust this to your project's Node.js version
+        node-version: '14'  # Adjust this to your project's Node.js version
 
     - name: Install dependencies
-      run: npm ci
+      run: |
+        npm install
+        git status
+        git diff package-lock.json
 
     - name: Build server
       working-directory: ./server
       run: npm run build
+
+    # Optional: Add linting step if you want to include it
+    # - name: Lint
+    #   run: npm run lint
+
+    # Optional: Add test step if you have tests
+    # - name: Test
+    #   run: npm test
+
+    - name: Check for package-lock.json changes
+      run: |
+        if [[ `git status --porcelain` ]]; then
+          echo "package-lock.json was updated. Please commit these changes."
+          exit 1
+        fi
