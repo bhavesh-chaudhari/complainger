@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { prisma } from "../utils/prisma";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const User = prisma.user;
 
